@@ -1,12 +1,23 @@
 ARG ARCH="amd64"
 ARG OS="linux"
-FROM alpine:3.22
+FROM alpine:3.22 as base
 
-RUN apk add smartmontools gpg gpg-agent curl
+RUN apk add smartmontools
 
 COPY --from=quay.io/prometheuscommunity/smartctl-exporter:v0.14.0 /bin/smartctl_exporter /bin/smartctl_exporter
 
+# -----------
+
+FROM base as update
+
+RUN apk add gpg gpg-agent curl
 RUN update-smart-drivedb
+
+# -----------
+
+FROM base as run
+
+COPY --from=update /usr/share/smartmontools/drivedb.h /usr/share/smartmontools/drivedb.h
 
 EXPOSE      9633
 USER        nobody
