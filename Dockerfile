@@ -1,6 +1,6 @@
 ARG ARCH="amd64"
 ARG OS="linux"
-FROM alpine:3.22 AS base
+FROM alpine:3.23 AS base
 
 RUN apk add smartmontools
 
