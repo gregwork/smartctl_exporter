@@ -4,7 +4,7 @@ FROM alpine:3.24 AS base
 
 RUN apk add smartmontools
 
-COPY --from=quay.io/prometheuscommunity/smartctl-exporter:v0.14.0 /bin/smartctl_exporter /bin/smartctl_exporter
+COPY --from=quay.io/prometheuscommunity/smartctl-exporter:v0.15.0 /bin/smartctl_exporter /bin/smartctl_exporter
 
 # -----------
 
